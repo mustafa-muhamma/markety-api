@@ -1,15 +1,15 @@
-// src/server.js
 import express from "express";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
 import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import connectDB from "./src/config/db.js";
+import helmet from "helmet";
 
 // Load env vars
 dotenv.config();
 
+// Create express app
 const app = express();
 
 // Connect Database
@@ -21,6 +21,8 @@ app.use(cors({
     credentials: true,
 }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(helmet());
 app.use(cookieParser());
 app.use(morgan("dev"));
 
